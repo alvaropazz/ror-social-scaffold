@@ -17,6 +17,12 @@ class User < ApplicationRecord
            foreign_key: 'friend_id',
            dependent: :destroy
   has_many :friend_requests, through: :inverted_friendships, source: :user
+  has_many :pending_friendships,
+           -> { where confirmed: false },
+           class_name: 'Friendship',
+           foreign_key: 'user_id',
+           dependent: :destroy
+  has_many :pending_friends, through: :pending_friendships, source: :friend
 
   def friends
     friends_array = friendships.map do |friendship|
@@ -27,11 +33,11 @@ class User < ApplicationRecord
     friends_array.compact
   end
 
-  def pending_friends
-    friendships.map do |friendship|
-      friendship.friend unless friendship.confirmed
-    end .compact
-  end
+  # def pending_friends
+  #   friendships.map do |friendship|
+  #     friendship.friend unless friendship.confirmed
+  #   end .compact
+  # end
 
   def confirm_friend(user)
     friendship = inverse_friendships.find do |friend|
