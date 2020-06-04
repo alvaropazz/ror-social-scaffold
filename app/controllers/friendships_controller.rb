@@ -6,8 +6,7 @@ class FriendshipsController < ApplicationController
     redirect_to user_path(@friend)
   end
 
-  def destroy
-  end
+  def destroy; end
 
   def confirm
     @user = current_user

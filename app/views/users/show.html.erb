@@ -1,39 +1,7 @@
 <section class="user-section">
   <h2><%= "Name: #{@user.name}" %></h2>
   <br>
-  <% if current_user != @user %>
-    <% if current_user.friend?(@user) %>
-        <p>"You're already friends!"</p>
-      <% elsif current_user.pending_friends.include?(@user) %>
-        <p>"Your request is pending!"</p>
-      <% else %>
-      <%= button_to "Send Request", user_friendships_path(@user)%>
-    <% end %>
-    <% elsif current_user %>
-      <div class="friendship-box">
-        <div class="pending-requests">
-          <strong>Pending Friend Requests:</strong>
-          <br><br>
-          <% @friend_requests.each do |f| %>
-          <strong> <%= f.name.capitalize %></strong>
-            <div class="friend-request">
-              <%= button_to "Confirm Request", confirm_user_friendship_path(f)%>
-              <%= button_to "Decline Request", decline_user_friendship_path(f)%>
-            </div>
-          <% end %>
-        </div>
-        <div class="all-friends">
-          <strong>All Friends:</strong>
-          <br><br>
-          <ul>
-          <% @friends.each do |f| %>
-            <li><%= link_to f.name, user_path(f)%></li>
-          <% end %>
-          </ul>
-        </div>
-      </div>
-  <% end %>
-  
+  <%= friendship_action %>
   <article class="timeline">
     <h3>Recent posts:</h3>
     <ul class="posts">

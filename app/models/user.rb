@@ -34,8 +34,8 @@ class User < ApplicationRecord
   end
 
   def confirm_friend(user)
-    friendship = inverse_friendships.find do |friendship|
-      friendship.user == user
+    friendship = inverse_friendships.find do |friend|
+      friend.user == user
     end
     friendship.confirmed = true
     friendship.save
@@ -50,8 +50,6 @@ class User < ApplicationRecord
   end
 
   def send_request(user)
-    unless pending_friends.include?(user)
-    friendships.create(friend_id: user.id, confirmed:false)
-    end
+    friendships.create(friend_id: user.id, confirmed: false) unless pending_friends.include?(user)
   end
 end
