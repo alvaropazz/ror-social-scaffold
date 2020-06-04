@@ -35,6 +35,16 @@ a {
   color: $primary-color-text;
 }
 
+.friendship-box {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.friendship-box > *{
+  width: 50%;
+}
+
 .nav {
   display: flex;
   justify-content: space-between;
@@ -335,9 +345,9 @@ form {
 }
 
 @media (min-width: 780px) {
-  form {
-    width: 40%;
-  }
+  // form {
+  //   width: 40%;
+  // }
 
   .new_post,
   .timeline,
