@@ -158,6 +158,11 @@ form {
     color: #fff;
   }
 
+  input[disabled="disabled"],
+  input[disabled="disabled"]:hover {
+    background-color: grey;
+  }
+
   .actions.reset {
     input[type="submit"] {
       width: 100%;
@@ -301,14 +306,18 @@ form {
   margin: 10px;
 
   .users-list li {
-    margin-bottom: 16px;
+    margin-bottom: 20px;
     text-transform: capitalize;
     font-size: 1.2em;
+
+    input {
+      font-size: .7em;
+    }
   }
 
   .profile-link {
     font-size: 0.8em;
-    margin: 0 0 8px 0;
+    margin: 0 0 8px 5px;
     color: $primary-color-dark;
   }
 }

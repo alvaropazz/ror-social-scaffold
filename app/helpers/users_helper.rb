@@ -1,15 +1,7 @@
 module UsersHelper
   def friendship_action
     if current_user != @user
-      if current_user.friend?(@user)
-        "You're already friends!"
-      elsif current_user.pending_friends.include?(@user)
-        content_tag(:p) do
-          'Your request is pending!'
-        end
-      else
-        button_to 'Send Request', user_friendships_path(@user)
-      end
+      friend_request_button
     elsif current_user
       content_tag(:div, class: 'friendship-box') do
         concat(content_tag(:div, class: 'pending-requests') do
@@ -44,5 +36,40 @@ module UsersHelper
         end)
       end
     end
+  end
+
+  def friend_request_button
+    if current_user.friend?(@user)
+      button_to "You're already friends!", {}, { disabled: true }
+    elsif current_user.pending_friends.include?(@user)
+      content_tag(:p) do
+        button_to 'Your request is pending!', {}, { disabled: true }
+      end
+    else
+      button_to 'Send Request', user_friendships_path(@user)
+    end
+  end
+
+  def index_users
+    @users.map do |user|
+      @user = user
+      content_tag(:li) do
+        concat(content_tag(:strong) do
+          "Name: #{user.name}"
+        end)
+        concat(content_tag(:span, class: 'profile-link') do
+          if current_user == @user
+            concat(link_to('See your Profile', user_path(user), class: 'profile-link'))
+          else
+            concat(link_to('See Profile', user_path(user), class: 'profile-link'))
+          end
+        end)
+        if current_user != @user
+          concat(content_tag(:span, class: 'profile-link') do
+            concat(friend_request_button)
+          end)
+        end
+      end
+    end.join.html_safe
   end
 end
