@@ -12,11 +12,7 @@ module UsersHelper
           concat(tag(:br))
           @friend_requests.each do |f|
             concat(content_tag(:strong) do
-              f.name.capitalize
-            end)
-            concat(content_tag(:div, class: 'friend-request') do
-              concat(button_to('Confirm Request', confirm_user_friendship_path(f)))
-              concat(button_to('Decline Request', decline_user_friendship_path(f)))
+              link_to f.name.capitalize, user_path(f), class: 'friend-link'
             end)
           end
         end)
@@ -44,6 +40,11 @@ module UsersHelper
     elsif current_user.pending_friends.include?(@user)
       content_tag(:p) do
         button_to 'Your request is pending!', {}, { disabled: true }
+      end
+    elsif current_user.friend_requests.include?(@user)
+      content_tag(:div, class: 'friend-request') do
+        concat(button_to('Confirm Request', confirm_user_friendship_path(id: current_user, user_id: @user)))
+        concat(button_to('Decline Request', decline_user_friendship_path(id: current_user, user_id: @user)))
       end
     else
       button_to 'Send Request', user_friendships_path(@user)

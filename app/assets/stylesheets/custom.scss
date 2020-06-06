@@ -364,3 +364,18 @@ form {
     width: 50%;
   }
 }
+
+
+.friend-request {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+.friend-request .button_to {
+  width: auto;
+  margin-right: 10px;
+}
+
+.pending-requests .friend-link {
+  color: $primary-color-dark;
+}

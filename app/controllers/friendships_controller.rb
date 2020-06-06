@@ -3,7 +3,7 @@ class FriendshipsController < ApplicationController
     @user = current_user
     @friend = User.find(params[:user_id])
     @user.send_request(@friend)
-    redirect_to user_path(@friend)
+    redirect_back(fallback_location: :back)
   end
 
   def destroy; end
@@ -12,13 +12,13 @@ class FriendshipsController < ApplicationController
     @user = current_user
     @friend = User.find(params[:user_id])
     @user.confirm_friend(@friend)
-    redirect_to user_path(@user)
+    redirect_back(fallback_location: :back)
   end
 
   def decline
     @user = current_user
     @friend = User.find(params[:user_id])
     @user.decline_friend(@friend)
-    redirect_to user_path(@user)
+    redirect_back(fallback_location: :back)
   end
 end
