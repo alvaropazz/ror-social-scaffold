@@ -7,7 +7,8 @@
 
 ## About the project
 
-This project consists of bulding the "frienship" functionality on top of an existing repo.
+- This project consists of bulding the "frienship" functionality on top of an existing repo.
+- [Live Demo Link](https://safe-mesa-84597.herokuapp.com/)
 
 ## Data Model
 
